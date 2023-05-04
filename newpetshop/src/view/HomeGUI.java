@@ -93,7 +93,7 @@ public class HomeGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jBSairActionPerformed
 
     private void jMFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFornecedorActionPerformed

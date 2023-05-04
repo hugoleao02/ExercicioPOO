@@ -9,10 +9,10 @@ import java.sql.DriverManager;
 
 public class FabricaConexao {
     private static final String user="root";
-    private static final String senha="";
-    private static final String url="jdbc:mysql://localhost:3306/mydb?allowPublicKeyRetrieval=true&useSSL=false";
+    private static final String senha="patkashi";
+    private static final String url="jdbc:mysql://localhost:3306/Pet23?allowPublicKeyRetrieval=true&useSSL=false";
     
-    public static Connection criaConexao() throws Exception{
+      public static Connection criaConexao() throws Exception{
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conexao = DriverManager.getConnection(url, user, senha);
         return conexao;

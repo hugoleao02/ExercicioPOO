@@ -13,8 +13,8 @@ import model.Cliente;
 public class ClienteDAO {
 
     public void inserirCliente(Cliente cliente) {
-        String sql = "INSERT INTO clientes(nome,cpf,email,telefone,dataNascimento,Enderecos_id)"
-                + " VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO clientes(nome,cpf,email,telefone,dataNascimento)"
+                + " VALUES (?,?,?,?,?)";
 
         Connection conexao = null;
         PreparedStatement pstmt = null;
