@@ -4,6 +4,9 @@
  */
 package view;
 
+import dao.AnimalDAO;
+import model.Animal;
+
 /**
  *
  * @author hugo
@@ -15,14 +18,14 @@ public class AnimalGUI extends javax.swing.JFrame {
      */
     public AnimalGUI() {
         initComponents();
-          setResizable(false);
-       //Evita o fechamento da tela pelo clique no X.
-       setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-       // Centraliza a tela criada no monitor
-       setLocationRelativeTo(null);
-       setSize(400, 400);
-       // Insere titulo na tela
-       setTitle("MeuPetShop");
+        setResizable(false);
+        //Evita o fechamento da tela pelo clique no X.
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        // Centraliza a tela criada no monitor
+        setLocationRelativeTo(null);
+        setSize(400, 400);
+        // Insere titulo na tela
+        setTitle("MeuPetShop");
     }
 
     /**
@@ -38,19 +41,19 @@ public class AnimalGUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
+        jTFNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTRaca = new javax.swing.JTextField();
+        jTFRaca = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTEspecie = new javax.swing.JTextField();
+        jTFEspecie = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTSexo = new javax.swing.JTextField();
+        jTFSexo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTTutor = new javax.swing.JTextField();
+        jTFTutor = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTNascimento = new javax.swing.JTextField();
+        jTFNascimento = new javax.swing.JTextField();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -65,27 +68,32 @@ public class AnimalGUI extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(20, 10, 100, 18);
 
-        jTNome.addActionListener(new java.awt.event.ActionListener() {
+        jTFNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNomeActionPerformed(evt);
+                jTFNomeActionPerformed(evt);
             }
         });
-        getContentPane().add(jTNome);
-        jTNome.setBounds(20, 30, 300, 24);
+        getContentPane().add(jTFNome);
+        jTFNome.setBounds(20, 30, 300, 24);
 
         jLabel2.setText("Raça");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 70, 90, 18);
-        getContentPane().add(jTRaca);
-        jTRaca.setBounds(20, 90, 120, 24);
+        getContentPane().add(jTFRaca);
+        jTFRaca.setBounds(20, 90, 120, 24);
 
         jLabel3.setText("Especie");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 140, 140, 18);
-        getContentPane().add(jTEspecie);
-        jTEspecie.setBounds(20, 160, 120, 24);
+        getContentPane().add(jTFEspecie);
+        jTFEspecie.setBounds(20, 160, 120, 24);
 
         jButton1.setText("Gravar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(220, 330, 90, 30);
 
@@ -102,31 +110,31 @@ public class AnimalGUI extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(190, 70, 100, 20);
 
-        jTSexo.addActionListener(new java.awt.event.ActionListener() {
+        jTFSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTSexoActionPerformed(evt);
+                jTFSexoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTSexo);
-        jTSexo.setBounds(190, 90, 120, 24);
+        getContentPane().add(jTFSexo);
+        jTFSexo.setBounds(190, 90, 120, 24);
 
         jLabel5.setText("Id tutor");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(190, 140, 80, 18);
 
-        jTTutor.addActionListener(new java.awt.event.ActionListener() {
+        jTFTutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTTutorActionPerformed(evt);
+                jTFTutorActionPerformed(evt);
             }
         });
-        getContentPane().add(jTTutor);
-        jTTutor.setBounds(190, 160, 120, 24);
+        getContentPane().add(jTFTutor);
+        jTFTutor.setBounds(190, 160, 120, 24);
 
         jLabel6.setText("Nascimento");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(20, 200, 130, 18);
-        getContentPane().add(jTNascimento);
-        jTNascimento.setBounds(20, 220, 150, 24);
+        getContentPane().add(jTFNascimento);
+        jTFNascimento.setBounds(20, 220, 150, 24);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,17 +143,40 @@ public class AnimalGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
+    private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTNomeActionPerformed
+    }//GEN-LAST:event_jTFNomeActionPerformed
 
-    private void jTSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTSexoActionPerformed
+    private void jTFSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFSexoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTSexoActionPerformed
+    }//GEN-LAST:event_jTFSexoActionPerformed
 
-    private void jTTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTutorActionPerformed
+    private void jTFTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFTutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTTutorActionPerformed
+    }//GEN-LAST:event_jTFTutorActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nome = jTFNome.getText().toString().trim();
+        String raca = jTFRaca.getText().toString().trim();
+        String sexo = jTFSexo.getText().toString().trim();
+        String especie = jTFEspecie.getText().toString().trim();
+        String dataNascimento = jTFNascimento.getText().toString().trim();
+        int idTutor = Integer.parseInt(jTFTutor.getText().trim());
+        
+        Animal animal = new Animal();
+        
+        animal.setNome(nome);
+        animal.setRaca(raca);
+        animal.setSexo(sexo);
+        animal.setEspecie(especie);
+        animal.setDataNascimento(dataNascimento);
+        animal.setTutor(idTutor);
+        
+        AnimalDAO animalDao = new AnimalDAO();
+        
+        animalDao.inserirAnimal(animal);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,11 +228,11 @@ public class AnimalGUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JTextField jTEspecie;
-    private javax.swing.JTextField jTNascimento;
-    private javax.swing.JTextField jTNome;
-    private javax.swing.JTextField jTRaca;
-    private javax.swing.JTextField jTSexo;
-    private javax.swing.JTextField jTTutor;
+    private javax.swing.JTextField jTFEspecie;
+    private javax.swing.JTextField jTFNascimento;
+    private javax.swing.JTextField jTFNome;
+    private javax.swing.JTextField jTFRaca;
+    private javax.swing.JTextField jTFSexo;
+    private javax.swing.JTextField jTFTutor;
     // End of variables declaration//GEN-END:variables
 }
