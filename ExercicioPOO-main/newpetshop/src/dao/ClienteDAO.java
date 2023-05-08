@@ -7,6 +7,9 @@ package dao;
 import controller.FabricaConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
 
@@ -58,4 +61,32 @@ public class ClienteDAO {
         }
     }
     
+    
+        public List<Cliente> buscarCliente() throws Exception{
+        
+    Connection conexao = (Connection) FabricaConexao.criaConexao();
+    PreparedStatement pstmt = null;
+    ResultSet rs= null;  
+    
+     List<Cliente> cliente = new ArrayList<>();
+        try {
+         pstmt = conexao.prepareStatement("SELECT * FROM clientes");
+         rs = pstmt.executeQuery();
+         while(rs.next()){
+         Cliente c = new Cliente();
+        
+         c.setNome(rs.getString("nome"));
+         c.setCpf(rs.getString("cpf"));
+         c.setEmail(rs.getString("email"));
+         c.setTelefone(rs.getString("telefone"));
+         c.setDataNascimento(rs.getString("dataNascimento"));
+        
+         cliente.add(c);
+             System.out.println(c.getNome());
+         }
+        } catch (Exception e) {
+        }
+    return cliente;
+    
+    }
 }

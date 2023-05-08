@@ -4,7 +4,9 @@
  */
 package view;
 
+import dao.AnimalDAO;
 import dao.ClienteDAO;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
 /**
@@ -16,7 +18,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     /**
      * Creates new form Clientes
      */
-    public ClienteGUI() {
+    public ClienteGUI()  {
         initComponents();
           setResizable(false);
        //Evita o fechamento da tela pelo clique no X.
@@ -26,6 +28,29 @@ public class ClienteGUI extends javax.swing.JFrame {
        setSize(810, 400);
        // Insere titulo na tela
        setTitle("MeuPetShop"); 
+       
+       try{
+           preencherTabela();
+       } catch(Exception e){
+           
+       }
+    }
+    
+      public void preencherTabela() throws Exception{
+        DefaultTableModel modelo = (DefaultTableModel) jTCliente.getModel();
+        
+            ClienteDAO clienteDAO = new ClienteDAO();
+            
+            for(Cliente cliente: clienteDAO.buscarCliente()){
+                modelo.addRow(new Object[]{
+                    cliente.getNome(),
+                    cliente.getCpf(),
+                    cliente.getEmail(),
+                    cliente.getTelefone(),
+                    cliente.getDataNascimento()
+                });
+            }
+        
     }
 
     /**
@@ -50,14 +75,14 @@ public class ClienteGUI extends javax.swing.JFrame {
         jBGravar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jLabel1.setText("Nome");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 0, 46, 16);
+        jLabel1.setBounds(20, 0, 50, 16);
 
         jTFNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,13 +94,13 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         jLabel2.setText("CPF");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 50, 21, 16);
+        jLabel2.setBounds(20, 50, 90, 16);
         getContentPane().add(jTFCpf);
         jTFCpf.setBounds(20, 70, 200, 22);
 
         jLabel4.setText("Email");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(350, 0, 29, 16);
+        jLabel4.setBounds(350, 0, 100, 16);
         getContentPane().add(jTFEmail);
         jTFEmail.setBounds(350, 20, 310, 22);
 
@@ -109,23 +134,20 @@ public class ClienteGUI extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(690, 60, 75, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "Email", "Cpf", "Telefone", "Nascimento"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jTClienteMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTCliente);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 110, 750, 240);
@@ -159,13 +181,13 @@ public class ClienteGUI extends javax.swing.JFrame {
       clienteDao.inserirCliente(cliente);
     }//GEN-LAST:event_jBGravarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-      jTFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(),1).toString());
-      jTFEmail.setText(jTable1.getValueAt(jTable1.getSelectedRow(),2).toString());
-      jTFCpf.setText(jTable1.getValueAt(jTable1.getSelectedRow(),3).toString());
-      jTFTelefone.setText(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString());
-      jTFDataDeNacimento.setText(jTable1.getValueAt(jTable1.getSelectedRow(),5).toString());
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void jTClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClienteMouseClicked
+//      jTFNome.setText(jTCliente.getValueAt(jTCliente.getSelectedRow(),1).toString());
+//      jTFEmail.setText(jTCliente.getValueAt(jTCliente.getSelectedRow(),2).toString());
+//      jTFCpf.setText(jTCliente.getValueAt(jTCliente.getSelectedRow(),3).toString());
+//      jTFTelefone.setText(jTCliente.getValueAt(jTCliente.getSelectedRow(),4).toString());
+//      jTFDataDeNacimento.setText(jTCliente.getValueAt(jTCliente.getSelectedRow(),5).toString());
+    }//GEN-LAST:event_jTClienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -214,11 +236,11 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTCliente;
     private javax.swing.JTextField jTFCpf;
     private javax.swing.JTextField jTFDataDeNacimento;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFTelefone;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
